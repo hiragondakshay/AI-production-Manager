@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: manufacturing_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: factorypassword2026
+      POSTGRES_DB: manufacturing_system
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: manufacturing_backend
+    environment:
+      DATABASE_URL: postgresql://postgres:factorypassword2026@postgres:5432/manufacturing_system
+      SECRET_KEY: super-secret-manufacturing-key-2026
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: manufacturing_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  postgres_data:

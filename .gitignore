@@ -1,0 +1,77 @@
+# Dependencies
+node_modules/
+*/node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Build Output
+dist/
+build/
+*/dist/
+frontend/dist/
+
+# Python Cache & Virtual Environments
+__pycache__/
+*/__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+# Databases & Local Data (Never commit runtime databases)
+*.db
+*.sqlite
+*.sqlite3
+backend/*.db
+backend/*.sqlite
+backend/production_system.db
+production_system.db
+
+# Environment & Secret Files (Local secrets strictly excluded)
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# Logs & OS Metadata
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Python files
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Frontend dependencies and build files
+node_modules/
+dist/
+
+# Logs
+*.log
+
+# Local Git history backup
+.git_backup/
+
