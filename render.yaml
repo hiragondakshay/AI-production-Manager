@@ -27,11 +27,13 @@ services:
           property: connectionString
 
   # 2. React + Vite Frontend
-  - type: static
+  - type: web
     name: nexusprod-frontend
+    runtime: static
     rootDir: frontend
+    plan: free
     buildCommand: "npm install && npm run build"
-    staticPublishPath: dist
+    staticPublishPath: frontend/dist
 
   # 3. PostgreSQL Database
 databases:
