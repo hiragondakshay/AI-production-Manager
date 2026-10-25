@@ -1,10 +1,9 @@
+
 services:
-  # ==========================================
-  # 1. FastAPI Backend Web Service
-  # ==========================================
+  # 1. FastAPI Backend
   - type: web
     name: nexusprod-backend
-    env: python
+    runtime: python
     rootDir: backend
     plan: free
     region: oregon
@@ -13,16 +12,13 @@ services:
     healthCheckPath: /
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11.9
+        value: "3.11.9"
       - key: ENVIRONMENT
         value: production
       - key: SECRET_KEY
         generateValue: true
       - key: ALLOWED_ORIGINS
-        fromService:
-          type: web
-          name: nexusprod-frontend
-          envVarKey: RENDER_EXTERNAL_URL
+        sync: false
       - key: FACTORY_TIMEZONE
         value: "Asia/Kolkata"
       - key: DATABASE_URL
@@ -30,32 +26,19 @@ services:
           name: nexusprod-db
           property: connectionString
 
-  # ==========================================
-  # 2. React + Vite Frontend Static Site
-  # ==========================================
+  # 2. React + Vite Frontend
   - type: web
     name: nexusprod-frontend
-    env: static
+    runtime: static
     rootDir: frontend
-    plan: free
-    region: oregon
     buildCommand: "npm install && npm run build"
     staticPublishPath: dist
     routes:
       - type: rewrite
         source: /*
         destination: /index.html
-    envVars:
-      - key: VITE_API_URL
-        fromService:
-          type: web
-          name: nexusprod-backend
-          envVarKey: RENDER_EXTERNAL_URL
-          transform: "${RENDER_EXTERNAL_URL}/api"
 
-# ==========================================
-# 3. Managed PostgreSQL Database
-# ==========================================
+  # 3. PostgreSQL Database
 databases:
   - name: nexusprod-db
     databaseName: nexusprod_db
